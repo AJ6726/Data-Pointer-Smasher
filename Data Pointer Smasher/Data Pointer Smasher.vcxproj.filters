@@ -215,5 +215,8 @@
     <ClInclude Include="paging.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="module_metadata.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

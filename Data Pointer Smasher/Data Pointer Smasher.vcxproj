@@ -175,6 +175,7 @@
     <ClInclude Include="include\Zydis\Status.h" />
     <ClInclude Include="include\Zydis\Utils.h" />
     <ClInclude Include="include\Zydis\Zydis.h" />
+    <ClInclude Include="module_metadata.h" />
     <ClInclude Include="nt.h" />
     <ClInclude Include="paging.h" />
     <ClInclude Include="pattern_scan.h" />
