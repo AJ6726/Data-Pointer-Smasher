@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Data Pointer Smasher", "Data Pointer Smasher\Data Pointer Smasher.vcxproj", "{C5594EA8-89A3-4730-89C3-16CD1CF4FCFA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM64 = Debug|ARM64
+		Debug|x64 = Debug|x64
+		Release|ARM64 = Release|ARM64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C5594EA8-89A3-4730-89C3-16CD1CF4FCFA}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{C5594EA8-89A3-4730-89C3-16CD1CF4FCFA}.Debug|ARM64.Build.0 = Debug|ARM64
+		{C5594EA8-89A3-4730-89C3-16CD1CF4FCFA}.Debug|ARM64.Deploy.0 = Debug|ARM64
+		{C5594EA8-89A3-4730-89C3-16CD1CF4FCFA}.Debug|x64.ActiveCfg = Debug|x64
+		{C5594EA8-89A3-4730-89C3-16CD1CF4FCFA}.Debug|x64.Build.0 = Debug|x64
+		{C5594EA8-89A3-4730-89C3-16CD1CF4FCFA}.Debug|x64.Deploy.0 = Debug|x64
+		{C5594EA8-89A3-4730-89C3-16CD1CF4FCFA}.Release|ARM64.ActiveCfg = Release|ARM64
+		{C5594EA8-89A3-4730-89C3-16CD1CF4FCFA}.Release|ARM64.Build.0 = Release|ARM64
+		{C5594EA8-89A3-4730-89C3-16CD1CF4FCFA}.Release|ARM64.Deploy.0 = Release|ARM64
+		{C5594EA8-89A3-4730-89C3-16CD1CF4FCFA}.Release|x64.ActiveCfg = Release|x64
+		{C5594EA8-89A3-4730-89C3-16CD1CF4FCFA}.Release|x64.Build.0 = Release|x64
+		{C5594EA8-89A3-4730-89C3-16CD1CF4FCFA}.Release|x64.Deploy.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D5464FDE-E83F-4FA0-AD3E-9D2466C66D68}
+	EndGlobalSection
+EndGlobal

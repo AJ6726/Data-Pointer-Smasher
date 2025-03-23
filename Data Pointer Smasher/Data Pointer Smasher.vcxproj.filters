@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Driver Files">
+      <UniqueIdentifier>{8E41214B-6785-4CFE-B992-037D68949A14}</UniqueIdentifier>
+      <Extensions>inf;inv;inx;mof;mc;</Extensions>
+    </Filter>
+    <Filter Include="Resource Files\Zydis">
+      <UniqueIdentifier>{431f4c49-8f64-47c4-ab2c-5dbe4b799fcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Zycore">
+      <UniqueIdentifier>{b25d34fe-7ed0-4018-a401-e797faa04e8b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Inf Include="DataPointerSmasher.inf">
+      <Filter>Driver Files</Filter>
+    </Inf>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pattern_scan.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="utility.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Zycore\Allocator.h">
+      <Filter>Resource Files\Zycore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zycore\ArgParse.h">
+      <Filter>Resource Files\Zycore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zycore\Atomic.h">
+      <Filter>Resource Files\Zycore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zycore\Bitset.h">
+      <Filter>Resource Files\Zycore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zycore\Comparison.h">
+      <Filter>Resource Files\Zycore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zycore\Defines.h">
+      <Filter>Resource Files\Zycore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zycore\Format.h">
+      <Filter>Resource Files\Zycore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zycore\LibC.h">
+      <Filter>Resource Files\Zycore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zycore\List.h">
+      <Filter>Resource Files\Zycore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zycore\Object.h">
+      <Filter>Resource Files\Zycore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zycore\Status.h">
+      <Filter>Resource Files\Zycore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zycore\String.h">
+      <Filter>Resource Files\Zycore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zycore\Types.h">
+      <Filter>Resource Files\Zycore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zycore\Vector.h">
+      <Filter>Resource Files\Zycore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zycore\Zycore.h">
+      <Filter>Resource Files\Zycore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zycore\Internal\AtomicGNU.h">
+      <Filter>Resource Files\Zycore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zycore\Internal\AtomicMSVC.h">
+      <Filter>Resource Files\Zycore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zycore\API\Memory.h">
+      <Filter>Resource Files\Zycore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zycore\API\Process.h">
+      <Filter>Resource Files\Zycore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zycore\API\Synchronization.h">
+      <Filter>Resource Files\Zycore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zycore\API\Terminal.h">
+      <Filter>Resource Files\Zycore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zycore\API\Thread.h">
+      <Filter>Resource Files\Zycore</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zydis\Decoder.h">
+      <Filter>Resource Files\Zydis</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zydis\DecoderTypes.h">
+      <Filter>Resource Files\Zydis</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zydis\Defines.h">
+      <Filter>Resource Files\Zydis</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zydis\Disassembler.h">
+      <Filter>Resource Files\Zydis</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zydis\Encoder.h">
+      <Filter>Resource Files\Zydis</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zydis\Formatter.h">
+      <Filter>Resource Files\Zydis</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zydis\FormatterBuffer.h">
+      <Filter>Resource Files\Zydis</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zydis\MetaInfo.h">
+      <Filter>Resource Files\Zydis</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zydis\Mnemonic.h">
+      <Filter>Resource Files\Zydis</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zydis\Register.h">
+      <Filter>Resource Files\Zydis</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zydis\Segment.h">
+      <Filter>Resource Files\Zydis</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zydis\SharedTypes.h">
+      <Filter>Resource Files\Zydis</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zydis\ShortString.h">
+      <Filter>Resource Files\Zydis</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zydis\Status.h">
+      <Filter>Resource Files\Zydis</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zydis\Utils.h">
+      <Filter>Resource Files\Zydis</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zydis\Zydis.h">
+      <Filter>Resource Files\Zydis</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zydis\Internal\DecoderData.h">
+      <Filter>Resource Files\Zydis</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zydis\Internal\EncoderData.h">
+      <Filter>Resource Files\Zydis</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zydis\Internal\FormatterATT.h">
+      <Filter>Resource Files\Zydis</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zydis\Internal\FormatterBase.h">
+      <Filter>Resource Files\Zydis</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zydis\Internal\FormatterIntel.h">
+      <Filter>Resource Files\Zydis</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zydis\Internal\SharedData.h">
+      <Filter>Resource Files\Zydis</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zydis\Internal\String.h">
+      <Filter>Resource Files\Zydis</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zydis\Generated\EnumInstructionCategory.h">
+      <Filter>Resource Files\Zydis</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zydis\Generated\EnumISAExt.h">
+      <Filter>Resource Files\Zydis</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zydis\Generated\EnumISASet.h">
+      <Filter>Resource Files\Zydis</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zydis\Generated\EnumMnemonic.h">
+      <Filter>Resource Files\Zydis</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Zydis\Generated\EnumRegister.h">
+      <Filter>Resource Files\Zydis</Filter>
+    </ClInclude>
+    <ClInclude Include="types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="nt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_register.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pattern_scan.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utility.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wrappers.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="paging.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
