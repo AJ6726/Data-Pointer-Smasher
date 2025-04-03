@@ -110,6 +110,9 @@ if (no_execute)
 
 ### Tested Versions
 -Windows 10 Version 22H2
+
+Works with kdmapper
+
 Update/check signatures in module_metadata.h to support other versions
 
 ### List of scanned drivers
