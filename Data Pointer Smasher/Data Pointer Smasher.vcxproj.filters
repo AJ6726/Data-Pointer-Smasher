@@ -33,9 +33,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pattern_scan.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
     <ClCompile Include="utility.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
@@ -202,9 +199,6 @@
     </ClInclude>
     <ClInclude Include="control_register.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="pattern_scan.h">
-      <Filter>Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="utility.h">
       <Filter>Resource Files</Filter>

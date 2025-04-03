@@ -2,17 +2,9 @@
 #include <ntddk.h>
 #include <intrin.h>
 #include "Zydis/Zydis.h"
-#include "pattern_scan.h"
 #include "utility.h"
 #include "wrappers.h"
-#include "paging.h"
-#include "control_register.h"
 #include "module_metadata.h"
-
-//Checks on the memory region any potential function pointers reside in
-uint32_t get_self_ref_index(); 
-page_table* get_pte(uint64_t address); 
-page_directory* get_pde(uint64_t address); 
 
 //Checks for a mov rax, [rip + offset] and *(rip + offset) == function pointer
 bool is_data_pointer_present(uint64_t function_start, uint64_t function_end, module_metadata& system_module); 
@@ -45,18 +37,19 @@ extern "C" NTSTATUS DriverEntry(PDRIVER_OBJECT driver_object = nullptr, PUNICODE
 		module_metadata& system_module = system_module_metadata[i];
 
 		system_module.base = get_kernel_module(system_module.name); 
-		system_module.nt_header = PIMAGE_NT_HEADERS(system_module.base + PIMAGE_DOS_HEADER(system_module.base)->e_lfanew); // I got lazy
+		PIMAGE_DOS_HEADER dos_header = reinterpret_cast<PIMAGE_DOS_HEADER>(system_module.base);
+		system_module.nt_header = reinterpret_cast<PIMAGE_NT_HEADERS>(system_module.base + dos_header->e_lfanew);
 		system_module.data_section = get_image_section(system_module.base, ".data");
 		system_module.rdata_section = get_image_section(system_module.base, ".rdata");
 
-		uint64_t guard_dispatch_icall = pattern_scan<uint64_t>(system_module.base, ".text", system_module.guard_dispatch_icall_sig, system_module.guard_dispatch_icall_mask); 
+		uint64_t guard_dispatch_icall = pattern_scan(system_module.base, ".text", system_module.guard_dispatch_icall_sig, system_module.guard_dispatch_icall_mask); 
 		if (!guard_dispatch_icall)
 		{
 			print("Failed to pattern scan for guard_dispatch_icall for module %ws \n", system_module.name); 
 			continue; 
 		}
 
-		system_module.guard_dispatch_icall = resolve_rva<uint64_t>(guard_dispatch_icall + system_module.instruction_offset, system_module.rva_offset, system_module.instruction_length);
+		system_module.guard_dispatch_icall = resolve_rva(guard_dispatch_icall + system_module.instruction_offset, system_module.rva_offset, system_module.instruction_length);
 
 		print("System Module %ws | Base %p | guard_dispatch_icall %p \n", system_module.name, system_module.base, system_module.guard_dispatch_icall); 
 
@@ -69,10 +62,7 @@ extern "C" NTSTATUS DriverEntry(PDRIVER_OBJECT driver_object = nullptr, PUNICODE
 			uint64_t function_start = system_module.base + runtime_function->BeginAddress; 
 			uint64_t function_end = system_module.base + runtime_function->EndAddress; 
 
-			page_table* function_pte = get_pte(function_start);
-
-			//Dxgkrnl crashes without this, skip ntoskrnl
-			if ((i > 0) && (!function_pte->present))
+			if (in_discardable_section(system_module.base, function_start))
 				continue; 
 
 			if (!is_cfg_present(function_start, function_end, system_module.guard_dispatch_icall))
@@ -137,38 +127,6 @@ extern "C" NTSTATUS DriverEntry(PDRIVER_OBJECT driver_object = nullptr, PUNICODE
 	return STATUS_SUCCESS;
 }
 
-uint32_t get_self_ref_index()
-{
-	control_register cr3 = { .value = __readcr3() };
-	page_map_level_4* pml4 = get_virtual_address<page_map_level_4*>(cr3.c3.pml4 << page_4kb_shift);
-
-	for (int i = 255; i < 512; i++)
-		if (pml4[i].page_frame_number == cr3.c3.pml4)
-			return i;
-
-	return 0;
-}
-
-page_table* get_pte(uint64_t address)
-{
-	static uint32_t self_ref_index = get_self_ref_index();
-
-	virtual_address pte_va = { .unused = 0xFFFF }; //Canonical Addressing moment
-	pte_va.pml4_index = self_ref_index;
-
-	return (page_table*)(((address >> 9) & 0x7FFFFFFFF8) + pte_va.value);
-}
-
-page_directory* get_pde(uint64_t address)
-{
-	static uint32_t self_ref_index = get_self_ref_index();
-
-	virtual_address pde_va = { .unused = 0xFFFF };
-	pde_va.pml4_index = self_ref_index;
-	pde_va.pdp_index = self_ref_index;
-	return (page_directory*)(((address >> 18) & 0x3FFFFFF8) + pde_va.value);
-}
-
 bool is_data_pointer_present(uint64_t function_start, uint64_t function_end, module_metadata& system_module)
 {
 	ZydisDecoder decoder;
@@ -214,7 +172,16 @@ bool is_data_pointer_present(uint64_t function_start, uint64_t function_end, mod
 		if (!in_own_module)
 			continue;
 
-		bool in_writable_section = get_pde(mov_target)->read_write;
+		bool in_writable_section = false; 
+		page_directory* pde = get_pde(mov_target); 
+		
+		if (pde->large_page)
+			in_writable_section = pde->large.read_write;
+		else
+		{
+			page_table* pte = get_pte(mov_target);
+			in_writable_section = pte->read_write;
+		}
 
 		if (!in_writable_section)
 			continue;
@@ -234,12 +201,10 @@ bool is_data_pointer_present(uint64_t function_start, uint64_t function_end, mod
 			continue;
 
 		bool no_execute = false;
-		page_directory* pde = get_pde(function_ptr);
+		pde = get_pde(function_ptr);
 
 		if (pde->large_page)
-		{
 			no_execute = pde->large.no_execute;
-		}
 		else
 		{
 			page_table* pte = get_pte(function_ptr);

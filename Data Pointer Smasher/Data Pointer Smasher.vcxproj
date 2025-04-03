@@ -120,7 +120,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="pattern_scan.cpp" />
     <ClCompile Include="utility.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -178,7 +177,6 @@
     <ClInclude Include="module_metadata.h" />
     <ClInclude Include="nt.h" />
     <ClInclude Include="paging.h" />
-    <ClInclude Include="pattern_scan.h" />
     <ClInclude Include="pe.h" />
     <ClInclude Include="types.h" />
     <ClInclude Include="utility.h" />
