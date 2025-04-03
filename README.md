@@ -61,7 +61,16 @@ bool in_own_module = (mov_target > system_module.base) && (mov_target <= module_
 if (!in_own_module)
 	continue;
 
-bool in_writable_section = get_pde(mov_target)->read_write;
+bool in_writable_section = false; 
+page_directory* pde = get_pde(mov_target); 
+
+if (pde->large_page)
+	in_writable_section = pde->large.read_write;
+else
+{
+	page_table* pte = get_pte(mov_target);
+	in_writable_section = pte->read_write;
+}
 
 if (!in_writable_section)
 	continue;
@@ -81,12 +90,10 @@ if (!(in_own_module || in_another_module))
 	continue;
 
 bool no_execute = false;
-page_directory* pde = get_pde(function_ptr);
+pde = get_pde(function_ptr);
 
 if (pde->large_page)
-{
 	no_execute = pde->large.no_execute;
-}
 else
 {
 	page_table* pte = get_pte(function_ptr);
@@ -101,14 +108,18 @@ if (no_execute)
 
 </details>
 
-### list of scanned drivers
+### Tested Versions
+-Windows 10 Version 22H2
+Update/check signatures in module_metadata.h to support other versions
+
+### List of scanned drivers
 - ntoskrnl
 - win32kbase
 - win32k
 - win32kfull
 - dxgkrnl
 
-To add more drivers, add the name of the driver and signatures needed for the guard_dispatch_icall function in the system modula metadata.
+To add more drivers, add the name of the driver and signatures needed for the guard_dispatch_icall function in the module_metadata.h.
 
 # Output Examples
 ### ntoskrnl
@@ -119,7 +130,6 @@ To add more drivers, add the name of the driver and signatures needed for the gu
 
 # Problems 
 1. The only scanned cfg function is guard_dispatch_icall, there are quite a few other cfg functions but guard_dispatch_icall has been the most used as far I've seen in window drivers.
-2. Some functions in dxgkrnl are located in the INIT section and will cause a crash if accessed. The bandaid fix was to simply check if it was to check the pte present bit if it was not ntoskrnl, a better approach is to scan through the pagable sections and MmProbeAndLockPages
 3. Dxgkrnl presents a lot of mov from registers, only mov with relative addressing are checked.
 4. Apart from ntoskrnl, on disk you'll see functions call guard_dispatch_icall_fptr. However, in memory those calls are patched to guard_dispatch_icall, and this is relevent as the type of the calls themselves change from indirect to direct (FF 15 to E8). <br>
    This requires patterns for the instructions AROUND the guard_dispatch_icall_fptr call. 
